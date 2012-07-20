@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+PKG="proTRAC"
+VER="1.0.0"
+PKG_DIR=/usr/lib/${PKG}${VER}
+TEST_EXE=proTRAC.pl
+
+if [ \( "$1" = "upgrade" -o "$1" = "remove" \) -a -L /usr/bin/${TEST_EXE} ]; then
+    for pathname in ${PKG_DIR}/bin/*; do
+        filename=`basename $pathname`
+        update-alternatives --remove ${filename} /usr/bin/${filename}${VER}
+    done
+fi
+

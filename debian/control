@@ -1,0 +1,12 @@
+Source: protrac1.0.0
+Section: science
+Priority: optional
+Build-Depends: debhelper (>= 7)
+Maintainer: David Rosenkranz <rosenkrd@uni-mainz.de>
+Homepage: http://www.uni-mainz.de/FB/Biologie/Anthropologie/472_DEU_HTML.php#proTRAC
+
+Package: protrac1.0.0
+Architecture: all
+Depends: perl, perl-base, perl-tk, lib-tk-stayontop-perl, libgd-gd2-perl
+Description: Probabilistic detection, visualization and analysis of piRNA clusters using NGS sequence data. proTRAC shows higher sensitivity and selectivity compared to hitherto applied methods of cluster detection.
+

@@ -1,0 +1,5 @@
+protrac1.0.0 (1.0.0-1) lucid; urgency=low
+
+  * Made a debian package
+
+ -- Anthony Brummett <abrummet@genome.wustl.edu>  Fri, 20 Jun 2012 14:38:20 -0500

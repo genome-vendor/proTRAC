@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+
+PRG=protrac
+VER=1.0.0
+PKG=$(PRG)$(VER)
+DEB_DIR=debian/$(PKG)
+PKG_LIB_DIR=/usr/lib/$(PKG)
+BIN_WRAPPER=\
+'\#!/bin/sh\n'\
+'export PATH=$(PKG_LIB_DIR)/bin:$$PATH\n'\
+'export PROTRAC_DIR=$(PKG_LIB_DIR)/\n'\
+"exec proTRAC.pl" '"$$@"'
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	mkdir -p $(DEB_DIR)/usr/bin $(DEB_DIR)$(PKG_LIB_DIR)/bin
+	mkdir -p $(DEB_DIR)$(PKG_LIB_DIR)/proTRAC_files
+	# convert DOS EOLs to Unix
+	tr -d '\015' < proTRAC.pl > $(DEB_DIR)$(PKG_LIB_DIR)/bin/proTRAC.pl
+	chmod 755 $(DEB_DIR)$(PKG_LIB_DIR)/bin/proTRAC.pl
+	install proTRAC_files/* $(DEB_DIR)$(PKG_LIB_DIR)/proTRAC_files
+	echo $(BIN_WRAPPER) | sed 's/^ *//' > $(DEB_DIR)/usr/bin/proTRAC.pl$(VER)
+	# Patch the script to accept the PROTRAC_DIR env var to find the image files
+	patch $(DEB_DIR)$(PKG_LIB_DIR)/bin/proTRAC.pl debian/cwd.patch

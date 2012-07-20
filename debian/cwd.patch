@@ -1,0 +1,12 @@
+--- proTRAC.pl  2012-07-20 15:38:12.951637000 -0500
++++ proTRAC.pl.patched  2012-07-20 15:38:27.552508000 -0500
+@@ -65,7 +65,7 @@
+ $MAIN_WINDOW->geometry("1024x786");
+ $MAIN_WINDOW->protocol('WM_DELETE_WINDOW',sub{unlink"prev_temp";if($directory_former_session){unlink"$directory_former_session/temp_stat";}exit;});
+ $mw=$MAIN_WINDOW->Scrolled('Pane',-scrollbars=>'osoe',-background=>White,-sticky=>'nw',-gridded=>'y')->pack(-fill=>'both',-expand=>1);
+-$cwd=getcwd;
++$cwd= $ENV{'PROTRAC_DIR'} || getcwd;
+ $programfiles=$cwd."/proTRAC_files";
+ $background=$mw->Photo(-format=>'png',-file=>"$programfiles/gui");
+ $mw->Label(-image=>$background)->pack();
+
